@@ -169,6 +169,7 @@ class PlacePickerState extends State<PlacePicker> {
                         moveToLocation(latLng);
                       },
                       markers: markers,
+                      zoomControlsEnabled: false,
                     ),
             ),
             if (!this.hasSearchTerm)
@@ -598,18 +599,13 @@ class PlacePickerState extends State<PlacePicker> {
   /// match the location.
   void moveToLocation(LatLng latLng) {
     this.mapController.future.then((controller) {
-      // Animate the camera to the provided location
       controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(target: latLng, zoom: 15.0),
-        ),
+        CameraUpdate.newCameraPosition(CameraPosition(target: latLng, zoom: 15.0)),
       );
     });
 
-    // Set the marker at the provided location
     setMarker(latLng);
 
-    // Update other UI elements based on the location
     reverseGeocodeLatLng(latLng);
 
     getNearbyPlaces(latLng);

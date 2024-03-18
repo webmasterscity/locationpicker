@@ -306,7 +306,7 @@ class PlacePickerState extends State<PlacePicker> {
 
         for (dynamic place in places) {
           final aci = AutoCompleteItem()
-            ..id = place['place_id']
+            ..id = place['id']
             ..text = place['formattedAddress']
             // Aquí puedes incluir más información sobre el lugar si es necesario
             // Por ejemplo, place['displayName'], place['types'], etc.

@@ -278,15 +278,22 @@ class PlacePickerState extends State<PlacePicker> {
       final apiKey = widget.apiKey;
       final endpoint = 'https://places.googleapis.com/v1/places:searchText?key=$apiKey';
 
-      final requestBody = {
-        'textQuery': query,
-        // Puedes agregar otros parámetros opcionales aquí según tus necesidades
+      Map<String, dynamic> requestBody = {
+        "textQuery": query,
+        "locationRestriction": {
+          "rectangle": {
+            "low": {"latitude": 9.514472, "longitude": -69.251590},
+            "high": {"latitude": 9.615174, "longitude": -69.128390}
+          }
+        },
+        "maxResultCount": 5,
       };
 
       final response = await http.post(
         Uri.parse(endpoint),
-        headers: {
-          'Content-Type': 'application/json',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location', //campos
         },
         body: jsonEncode(requestBody),
       );
